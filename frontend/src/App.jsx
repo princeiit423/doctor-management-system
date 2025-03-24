@@ -9,6 +9,7 @@ import MyProfile from './pages/Myprofile'
 import MyAppointment from './pages/MyAppointment'
 import Appointment from './pages/Appointment'
 import {Routes,Route} from 'react-router-dom'
+import Footer from './components/Footer'
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/my-appointment' element={<MyAppointment/>}/>
         <Route path='/appointment/:docId' element={<Appointment/>}/>
        </Routes>
+       <Footer/>
     </div>
   )
 }
