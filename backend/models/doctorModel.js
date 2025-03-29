@@ -15,7 +15,7 @@ const doctorSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-        requored:true,
+        required:true,
     },
     speciality:{
         type:String,
@@ -41,12 +41,12 @@ const doctorSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    Address:{
+    address:{
         type:Object,
         required:true,
     },
     date:{
-        type:Number,
+        type:Date,
         required:true,
     },
     slots_booked:{
