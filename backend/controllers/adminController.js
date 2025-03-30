@@ -15,7 +15,6 @@ const addDoctor = async (req, res) => {
       speciality,
       degree,
       experience,
-      available,
       about,
       fees,
       address,
@@ -31,8 +30,7 @@ const addDoctor = async (req, res) => {
       !experience ||
       !about ||
       !fees ||
-      !address ||
-      !available
+      !address
     ) {
       res.json({ success: "false", message: "Missing details" });
     }
@@ -69,7 +67,6 @@ const addDoctor = async (req, res) => {
       experience,
       about,
       fees,
-      available,
       address: JSON.parse(address),
       date: Date.now(),
     };
