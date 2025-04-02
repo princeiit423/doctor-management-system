@@ -10,7 +10,7 @@ const Navbar = () => {
 
     const logout = ()=>{
         setToken(false)
-        localStorage.setItem('token');
+        localStorage.removeItem('token');
 
     }
   return (
