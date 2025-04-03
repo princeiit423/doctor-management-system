@@ -95,6 +95,8 @@ const updateProfile = async (req,res)=>{
     }
 }
 
+
+//ApI for book appointment logic
 const bookAppointment = async (req,res)=>{
     try {
         const {userId, docId, slotDate, slotTime}= req.body;
@@ -142,4 +144,19 @@ const bookAppointment = async (req,res)=>{
     }
 }
 
-export { userRegister , userLogin, getProfile, updateProfile, bookAppointment};
+//API to get user appointment details
+
+const listAppointment = async (req,res)=>{
+    try {
+        const {userId} = req.body;
+
+        const appointments = await appointmentModel.find({userId})
+
+        res.json({success:true, appointments})
+        
+    } catch (error) {
+        res.json({message:error.message});
+    }
+}
+
+export { userRegister , userLogin, getProfile, updateProfile, bookAppointment,listAppointment};
