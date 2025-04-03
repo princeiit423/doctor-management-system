@@ -91,7 +91,7 @@ const Appointment = () => {
       if(data.success === true){
         toast.success(data.message);
         getDoctorsData()
-        navigate('/my-appointments')
+        navigate('/my-appointment')
       } else{
         toast.error(data.message);
       }
