@@ -18,10 +18,7 @@ connectCloudinary();
 app.use(express.json());
 app.use(
     cors({
-      origin: ["https://doc-nest-five.vercel.app"], // Allow only your frontend URL
-      methods: "GET,POST,PUT,DELETE", // Allow specific HTTP methods
-      allowedHeaders: "Content-Type,Authorization", // Allow headers
-      credentials: true, // Allow cookies & authentication headers
+      origin: "https://doc-nest-five.vercel.app", // Specify your frontend URL
     })
   );
 
