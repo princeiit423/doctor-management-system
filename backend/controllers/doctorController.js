@@ -90,5 +90,63 @@ const appointmentCancelled = async (req,res)=>{
     }
 }
 
+// API to get dashboard data for doctor panel
 
-export {changeAvailability, doctorsList,loginDoctor,appointmentsDoctor, appointmentComplete,appointmentCancelled}
+const doctorDashboard = async(req,res)=>{
+        try {
+            const {docId}= req.body;
+            const appointments = await appointmentModel.find({docId})
+            let earnings = 0;
+
+            appointments.map((item)=>{
+                if(item.isCompleted || item.payment){
+                    earnings += item.amount
+                }
+            })
+            let patients = []
+            appointments.map((item)=>{
+                if(patients.includes(item.userId)){
+                    patiennts.push(item.userId)
+                }
+            })
+
+            const dashData = {
+                earnings,
+                appointments: appointments.length,
+                patients: patients.length,
+                latestAppointments: appointments.reverse().slice(0,5)
+            }
+
+            res.json({success:true,dashData})
+        } catch (error) {
+            res.json({success:false, message:error.message})
+        }
+}
+
+// API to get Doctor profile
+
+const doctorProfile = async(req,res)=>{
+    try {
+        const {docId} = req.body;
+        const profileData = await doctorModel.findById(docId).select('-password')
+        res.json({success:true,profileData})
+    } catch (error) {
+        res.json({success:false, message:error.message})
+    }
+}
+
+// API to update doctor profile
+
+const updateDoctorProfile = async(req,res)=>{
+    try {
+        const {docId,fees,address,available}= req.body;
+
+        await doctorModel.findByIdAndUpdate(docId,{fees,address,available})
+        res.json({success:true,message:"Profile Updated"})
+    } catch (error) {
+     res.json({success:false, message:error.message})
+    }
+}
+
+
+export {changeAvailability, doctorsList,loginDoctor,appointmentsDoctor, appointmentComplete,appointmentCancelled,doctorDashboard, doctorProfile,updateDoctorProfile}
