@@ -5,13 +5,14 @@ import About from './pages/About'
 import Doctors from './pages/Doctors'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
-import MyProfile from './pages/Myprofile'
+
 import MyAppointment from './pages/MyAppointment'
 import Appointment from './pages/Appointment'
 import {Routes,Route} from 'react-router-dom'
 import Footer from './components/Footer'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MyProfile from './pages/MyProfile'
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
