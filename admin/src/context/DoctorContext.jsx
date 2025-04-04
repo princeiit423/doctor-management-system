@@ -8,7 +8,8 @@ const DoctorContextProvider = (props)=>{
     const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [dToken,setDToken]= useState(localStorage.getItem('dToken')?localStorage.getItem('dToken'): '')
     const [appointments,setAppointments]= useState([])
-
+    const [dashData,setDashData]= useState(false)
+    const [profileData, setProfileData]= useState(false)
     const getAppointments = async ()=>{
         try {
             const {data} = await axios.get(backendUrl+'/api/doctor/appointments', {headers:{dToken}} )
@@ -52,6 +53,36 @@ const DoctorContextProvider = (props)=>{
             toast.error(error.message);
         }
     }
+    const getDashData = async()=>{
+        try {
+            const {data}= await axios.get(backendUrl+'/api/doctor/dashboard',{headers:{dToken}})  
+            if(data.success === true){
+                setDashData(data.dashData)
+            } else{
+                toast.error(data.message)
+            }          
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message);
+        }
+    }
+
+    const getProfileData = async ()=>{
+        try {
+            const {data}= await axios.get(backendUrl+'/api/doctor/profile',{headers:{dToken}})
+            if(data.success === true){
+                setProfileData(data.profileData)
+                console.log(data.profileData)
+            } else{
+                toast.error(data.message)
+            }
+            
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message);
+        }
+    }
+    
     const value = {
             backendUrl,
             dToken,setDToken,
@@ -59,6 +90,11 @@ const DoctorContextProvider = (props)=>{
             getAppointments,
             completeAppointment,
             cancelAppointment,
+            dashData,setDashData,
+            getDashData,
+            profileData,setProfileData,
+            getProfileData,
+
     }
     return (
         <DoctorContext.Provider value={value}>
