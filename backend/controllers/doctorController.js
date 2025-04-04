@@ -1,6 +1,8 @@
 import doctorModel from "../models/doctorModel.js"
+import appointmentModel from "../models/appointmentModel.js"
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 const changeAvailability = async (req,res)=>{
     try {
         const {docId} = req.body;
@@ -26,21 +28,34 @@ const doctorsList = async(req,res)=>{
 const loginDoctor= async(req,res)=>{
     try {
         const {email,password}= req.body;
-        const doctor = await doctorModel.findOne({email,})
+        const doctor = await doctorModel.findOne({email})
         if(!doctor){
             return res.json({success:false,message:"Unvalid credentials"})
         }
         const isMatch = await bcrypt.compare(password,doctor.password)
         if(isMatch){
             const token = jwt.sign({id:doctor._id},process.env.JWT_SECRET)
-            res.json({success:true},token)
+            res.json({success:true,token})
         }else{
             res.json({success:false,message:"Invalid credentials"})
         }
     } catch (error) {
-        res.json( res.json({success:false,message:error.message}))
+        res.json({success:false,message:error.message})
+    }
+}
+
+// API to get doctor appointments for doctor panel
+
+const appointmentsDoctor = async(req,res)=>{
+    try {
+        const {docId} = req.body;
+        const appointments = await appointmentModel.find({docId})
+        res.json({success:true,appointments})
+        
+    } catch (error) {
+        res.json({success:false,message:error.message})
     }
 }
 
 
-export {changeAvailability, doctorsList,loginDoctor}
+export {changeAvailability, doctorsList,loginDoctor,appointmentsDoctor}
