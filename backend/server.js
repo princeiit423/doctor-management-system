@@ -16,7 +16,7 @@ connectCloudinary();
 
 //middlewares
 app.use(express.json());
-app.use(cors({ origin: "https://doc-nest-five.vercel.app/" }));
+app.use(cors());
 
 //api endpoints
 
