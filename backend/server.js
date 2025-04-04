@@ -18,10 +18,10 @@ connectCloudinary();
 app.use(express.json());
 app.use(
     cors({
-      origin: "https://doc-nest-five.vercel.app", // Specify your frontend URL
+      origin: '*', // Allow all origins
     })
   );
-
+  
 //api endpoints
 
 app.use('/api/admin', adminRouter)
