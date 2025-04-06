@@ -16,11 +16,13 @@ connectCloudinary();
 
 //middlewares
 app.use(express.json());
-app.use(
-    cors({
-      origin: '*',
-    })
-  );
+
+// Allow requests from your frontend domain
+app.use(cors({
+  origin: 'https://doc-nest-five.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true, // If using cookies/auth
+}));
   
 //api endpoints
 
